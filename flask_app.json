@@ -1,13 +1,13 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:us-east-1:471112719100:task-definition/flask-app-task:1",
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:471112719100:task-definition/flask-app-task:2",
     "containerDefinitions": [
         {
-            "name": "flask-calculator-2",
-            "image": "471112719100.dkr.ecr.us-east-1.amazonaws.com/calculator-flask:latest",
+            "name": "flask-calculator",
+            "image": "471112719100.dkr.ecr.us-east-1.amazonaws.com/calculator-flask",
             "cpu": 0,
             "portMappings": [
                 {
-                    "name": "flask-calculator-2-5000-tcp",
+                    "name": "flask-calculator-5000-tcp",
                     "containerPort": 5000,
                     "hostPort": 5000,
                     "protocol": "tcp",
@@ -36,9 +36,10 @@
         }
     ],
     "family": "flask-app-task",
+    "taskRoleArn": "arn:aws:iam::471112719100:role/ecsTaskExecutionRole",
     "executionRoleArn": "arn:aws:iam::471112719100:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 1,
+    "revision": 2,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
@@ -56,6 +57,9 @@
         },
         {
             "name": "com.amazonaws.ecs.capability.docker-remote-api.1.28"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.task-iam-role"
         },
         {
             "name": "ecs.capability.execution-role-ecr-pull"
@@ -84,7 +88,7 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2024-12-21T10:06:47.784Z",
+    "registeredAt": "2024-12-21T14:21:31.042Z",
     "registeredBy": "arn:aws:iam::471112719100:user/aws-mlops-learning-nabeel",
     "enableFaultInjection": false,
     "tags": []
