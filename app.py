@@ -10,6 +10,7 @@ app = Flask(__name__)
 def home_page():
     '''
     This function will render homepage
+    this will help to know about homepage
     '''
     return render_template('index.html')
 
