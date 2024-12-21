@@ -72,6 +72,7 @@ jobs:
         echo "ECR Registry: $ECR_REGISTRY"
         echo "ECR Repository: $REPOSITORY"
         echo "Image Tag: $IMAGE_TAG"
+        ech " Above details as imp"
 
         docker build -t $REPOSITORY:$IMAGE_TAG .
         echo "Created image name is image=$ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG"
