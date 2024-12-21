@@ -1,14 +1,26 @@
+"""
+This module contains test cases for the Flask application in app.py.
+"""
 import pytest
+from flask.testing import FlaskClient
 from app import app
+from typing import Generator
+
 
 @pytest.fixture
-def client():
+def client()->  Generator[FlaskClient, None, None]:  # pylint: disable=redefined-outer-name
+    '''
+    This function will yield client
+    '''
     app.testing = True
     with app.test_client() as client:
         yield client
 
 def test_home_page(client):
     # Testing the homepage
+    '''
+    This function will test rendering of home page
+    '''
     response = client.get('/')
     assert response.status_code == 200
     assert b'<title>Calculator</title>' in response.data
@@ -17,7 +29,9 @@ def test_home_page(client):
 
 
 def test_addition(client):
-    # Testing the addition operation
+    '''
+    This function will test addition
+    '''
     response = client.post('/math', data={
         'operation': 'add',
         'num1': '10',
@@ -28,6 +42,9 @@ def test_addition(client):
 
 def test_subtraction(client):
     # Testing the subtraction operation
+    '''
+    This function will test substration
+    '''
     response = client.post('/math', data={
         'operation': 'subtract',
         'num1': '20',
@@ -38,6 +55,9 @@ def test_subtraction(client):
 
 def test_multiplication(client):
     # Testing the multiplication operation
+    '''
+    This function will test Multiplication
+    '''
     response = client.post('/math', data={
         'operation': 'multiply',
         'num1': '10',
@@ -48,6 +68,9 @@ def test_multiplication(client):
 
 def test_division(client):
     # Testing the division operation
+    '''
+    This function will test Division
+    '''
     response = client.post('/math', data={
         'operation': 'divide',
         'num1': '20',
@@ -55,4 +78,7 @@ def test_division(client):
     })
     assert response.status_code == 200
     assert b'the quotient when 20 is divided by 10 is 2.0' in response.data
+
+
+
 
