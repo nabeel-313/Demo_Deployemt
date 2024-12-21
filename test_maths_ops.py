@@ -77,7 +77,7 @@ def test_division(client):
         'num2': '10'
     })
     assert response.status_code == 200
-    assert b'the quotient when 20 is divided by 10 is 2.0' in response.data
+    assert b'the result when 20 isdividedby 10 is 2.0' in response.data
 
 
 
