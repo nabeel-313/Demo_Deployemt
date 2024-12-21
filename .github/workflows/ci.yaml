@@ -76,7 +76,7 @@ jobs:
         docker build -t $REPOSITORY .
         echo "Created image name is image=$ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG"
 
-        docker tag $REPOSITORY:$IMAGE_TAG $ECR Registry/$ECR Repository:$Image Tag
+        docker tag $REPOSITORY:$IMAGE_TAG $ECR_Registry/$Repository:$Image_Tag
         echo " tagged your image so you can push the image to repository"
 
         docker push $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG
