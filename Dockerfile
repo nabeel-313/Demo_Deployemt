@@ -5,7 +5,7 @@ FROM python:3.9-slim
 WORKDIR /app
 
 # Copy the requirements file into the container
-COPY requirements.txt .
+COPY requirement.txt .
 
 # Install dependencies
 RUN pip install --upgrade pip && \
