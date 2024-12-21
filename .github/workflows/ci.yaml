@@ -69,14 +69,14 @@ jobs:
         # Build a docker container and
         # push it to ECR so that it can
         # be deployed to ECS.
-        echo "ECR Registry: $ECR_REGISTRY"
-        echo "ECR Repository: $REPOSITORY"
-        echo "Image Tag: $IMAGE_TAG"
+        echo "ECR__Registry: $ECR_REGISTRY"
+        echo "RRepository: $REPOSITORY"
+        echo "Image_TAG: $IMAGE_TAG"
 
         docker build -t $REPOSITORY .
         echo "Created image name is image=$ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG"
 
-        docker tag $REPOSITORY:$IMAGE_TAG $ECR_Registry/$Repository:$Image_Tag
+        docker tag $REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG
         echo " tagged your image so you can push the image to repository"
 
         docker push $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG
