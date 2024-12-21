@@ -82,18 +82,3 @@ jobs:
         docker push $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG
         echo "image pushed to ECR"
         echo "image=$ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
-
-    - name: Fill in the new image ID in the Amazon ECS task definition
-      id: task-def
-      uses: aws-actions/amazon-ecs-render-task-definition@v1
-      with:
-        task-definition: flask_app.json
-        container-name: flask-calculator    #should be same as constainer name in ECS cluster
-        image: ${{ steps.build-image.outputs.image }}
-    - name: Deploy Amazon ECS task definition
-      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-      with:
-        task-definition: ${{ steps.task-def.outputs.task-definition }}
-        service: flask-app     #Should be same as service name in ECS cluster
-        cluster: flask-app-calculate   #Should be same as cluster name in ECS
-        wait-for-service-stability: true
