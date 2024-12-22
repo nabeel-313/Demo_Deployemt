@@ -6,7 +6,7 @@ from flask import Flask, render_template, request
 app = Flask(__name__)
 
 
-@app.route('/', methods=['GET', 'POST']) # To render Homepage
+@app.route('/homepage', methods=['GET', 'POST']) # To render Homepage
 def home_page():
     '''
     This function will render homepage

@@ -18,4 +18,4 @@ COPY . .
 EXPOSE 5000
 
 # Run uWSGI with minimal configuration
-CMD ["python3", "app.py"]
+CMD ["python3", "app.py", "--host=0.0.0.0"]

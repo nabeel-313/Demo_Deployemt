@@ -21,7 +21,7 @@ def test_home_page(client):
     '''
     This function will test rendering of home page
     '''
-    response = client.get('/')
+    response = client.get('/homepage')
     assert response.status_code == 200
     assert b'<title>Calculator</title>' in response.data
     assert b'<form' in response.data  # Check for the presence of a form
