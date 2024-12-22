@@ -1,5 +1,6 @@
 flask
 pytest
+uwsgi
 pylint
 mypy
 

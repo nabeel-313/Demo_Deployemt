@@ -1,25 +1,19 @@
-# Use the official Python image from the Docker Hub
 FROM python:3.9-slim
 
-# Set the working directory in the container
+# Set the working directory
 WORKDIR /app
 
-# Copy the requirements file into the container
+# Copy requirements and install dependencies
 COPY requirement.txt .
-
-# Install dependencies
 RUN pip install --upgrade pip && \
-    pip install -r requirement.txt
+    pip install -r requirement.txt && \
+    pip install uwsgi
 
-# Copy the rest of the application files into the container
+# Copy the application files
 COPY . .
 
-# Expose the port the app will run on
+# Expose the app port
 EXPOSE 5000
 
-# Set the environment variable for Flask
-ENV FLASK_APP=app.py
-ENV FLASK_RUN_HOST=0.0.0.0
-
-# Command to run the Flask app
-CMD ["flask", "run"]
+# Run uWSGI with minimal configuration
+CMD ["uwsgi", "--http", "0.0.0.0:5000", "--module", "app:app"]
