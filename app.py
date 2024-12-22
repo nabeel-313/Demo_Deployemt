@@ -1,5 +1,5 @@
 """
-This is simple back end code for flask.
+This module contains test cases for the Flask application in app.py.
 """
 from flask import Flask, render_template, request
 
