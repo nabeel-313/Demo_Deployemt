@@ -11,6 +11,7 @@ def home_page():
     '''
     This function will render homepage
     this will help to know about homepage
+    Hope it will work fine now
     '''
     return render_template('index.html')
 
