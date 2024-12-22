@@ -1,14 +1,10 @@
 FROM python:3.9-slim
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    python3-dev
+
 
 # Install Python dependencies
 RUN pip install --upgrade pip
-RUN pip install --upgrade pip setuptools wheel
-RUN pip install uwsgi
+
 # Set the working directory
 WORKDIR /app
 
@@ -22,4 +18,4 @@ COPY . .
 EXPOSE 5000
 
 # Run uWSGI with minimal configuration
-CMD ["uwsgi", "--http", "0.0.0.0:5000", "--module", "app:app"]
+CMD ["python3", "app.py"]
