@@ -19,6 +19,7 @@ def home_page():
 def math_operation():
     '''
     This function will render Result page
+    now this deployment on k8s
     '''
     if request.method=='POST':
         operation=request.form['operation']

@@ -1,0 +1,76 @@
+1)AWS configure
+
+below command will create cluster, will take little time be pateint
+2)eksctl create cluster --name my-cluster --region us-east-1 --fargate
+confirm after creating by visiting console -->> EKS
+
+Update the kube config 41 min
+3)aws eks update-kubeconfig --name my-cluster --region us-east-1
+
+Create fargate profile -->2048-app-deploy-ingress.md
+4)eksctl create fargateprofile --cluster my-cluster --region us-east-1 --name alb-sample-app --namespace game-2048
+confirm after creating by visiting console -->> EKS -->> Cluster -->> Compute -->> fargate profile
+
+Deploy the deployment, service and Ingress
+5)kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.5.4/docs/examples/2048/2048_full.yaml
+
+kubectl get pods -n game-2048 -w
+kubectl get svc -n game-2048
+Externan IP will be None -->> no one frm outside can access
+
+
+kubectl get ingress -n game-2048
+
+
+configure-oidc-connector.md52 min
+6)eksctl utils associate-iam-oidc-provider --cluster my-cluster --approve
+confirm by running this
+aws eks describe-cluster --name my-cluster --query "cluster.identity.oidc.issuer" --output text
+
+alb-controller-add-on.md
+7)curl -O https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.11.0/docs/install/iam_policy.json
+create IAM policy
+
+8)aws iam create-policy --policy-name AWSLoadBalancerControllerIAMPolicy --policy-document file://iam_policy.json
+Confirm by visitin IAM -->> policy -->> search policy
+
+
+create IAM Role
+9)eksctl create iamserviceaccount --cluster=my-cluster --namespace=kube-system --name=aws-load-balancer-controller --role-name AmazonEKSLoadBalancerControllerRole --attach-policy-arn=arn:aws:iam::<your-account-id>:policy/AWSLoadBalancerControllerIAMPolicy --approve
+Confirm by visitin IAM -->> Role-->> search Role
+
+kubectl apply --validate=false -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.0/cert-manager.yaml
+
+Add helm repo
+10)helm repo add eks https://aws.github.io/eks-charts
+11)helm repo update eks
+
+12)helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=my-cluster --set serviceAccount.create=false --set serviceAccount.name=aws-load-balancer-controller --set region=us-east-1 --set vpcId=<your-vpc-id> #need to upadate
+to uninstall run below cmd
+helm uninstall aws-load-balancer-controller -n kube-system
+
+
+final confirmation
+kubectl get deployment -n kube-system aws-load-balancer-controller
+kubectl get deployment -n kube-system aws-load-balancer-controller -w
+kubectl get pods -n kube-system -w
+kubectl get deploy -n kube-system
+
+once it is done visit ec2 -->> ALB -->> k8s-game2048-ingress-..  -->> check status ACTIVE or not  
+if active run below cmd and get url/address and open it in any browser
+
+kubectl get ingress -n game-2048
+kubectl describe ingress ingress-2048 -n game-2048
+
+Manual creating 
+create cluster
+add role eks
+
+Cluster role missing recommended managed policies
+The cluster role must have the following managed policies or equivalent permissions to use EKS Auto Mode:
+AmazonEKSBlockStoragePolicy
+AmazonEKSComputePolicy
+AmazonEKSLoadBalancingPolicy
+AmazonEKSNetworkingPolicy
+
+
