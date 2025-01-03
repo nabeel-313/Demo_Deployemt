@@ -62,15 +62,6 @@ if active run below cmd and get url/address and open it in any browser
 kubectl get ingress -n game-2048
 kubectl describe ingress ingress-2048 -n game-2048
 
-Manual creating 
-create cluster
-add role eks
 
-Cluster role missing recommended managed policies
-The cluster role must have the following managed policies or equivalent permissions to use EKS Auto Mode:
-AmazonEKSBlockStoragePolicy
-AmazonEKSComputePolicy
-AmazonEKSLoadBalancingPolicy
-AmazonEKSNetworkingPolicy
 
 
