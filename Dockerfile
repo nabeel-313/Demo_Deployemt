@@ -15,7 +15,7 @@ RUN  pip install -r requirement.txt
 COPY . .
 
 # Expose the app port
-EXPOSE 5000
+EXPOSE 5001
 
 # Run uWSGI with minimal configuration
 CMD ["python3", "app.py", "--host=0.0.0.0"]
